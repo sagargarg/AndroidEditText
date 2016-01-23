@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static double value1var;
     public static double value2var;
     public static DecimalFormat df;
+    public static double val1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 try {
-                    double val1 = df.parse(s.toString()).doubleValue();
+                    val1 = df.parse(s.toString()).doubleValue();
                     double val2 = df.parse(value2.getText().toString()).doubleValue();
 
                     if (val1 != val2) {
@@ -84,20 +85,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        value2.addTextChangedListener(new TextWatcher() {
+        /*value2.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().equals("")) {
                     value1.setText(df.format("0"));
+                    val1 = 0;
                     //value2.setText(df.format("0"));
                     return;
                 }
 
                 try {
-                    double val1 = df.parse(value1.getText().toString()).doubleValue();
+                    val1 = df.parse(value1.getText().toString()).doubleValue();
                     double val2 = df.parse(editable.toString()).doubleValue();
                     if (val1 != val2) {
                         value1.setText(df.format(val2));
+                        val1 = val2;
                     }
                 } catch(ParseException e) {
 
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-        });
+        }); */
     }
 
     @Override
