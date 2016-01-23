@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -32,7 +33,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        df = new DecimalFormat("0.#####", new DecimalFormatSymbols(Locale.FRANCE));
+        NumberFormat nf = NumberFormat.getInstance();
+        char decSeparator = '.';
+        if(nf instanceof DecimalFormat) {
+            DecimalFormatSymbols sym = ((DecimalFormat) nf).getDecimalFormatSymbols();
+            decSeparator = sym.getDecimalSeparator();
+        }
+
+        if (decSeparator == ',') {
+            df = new DecimalFormat("0.#####", new DecimalFormatSymbols(Locale.FRANCE));
+        }
+        else {
+            df = new DecimalFormat("0.#####", new DecimalFormatSymbols(Locale.US));
+        }
 
         value1 = (EditText)findViewById(R.id.value1);
         value2 = (EditText)findViewById(R.id.value2);
@@ -47,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().equals("")) {
-                    value1.setText(df.format("0"));
+                    //value1.setText(df.format("0"));
                     value2.setText(df.format("0"));
                     return;
                 }
@@ -77,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().equals("")) {
                     value1.setText(df.format("0"));
-                    value2.setText(df.format("0"));
+                    //value2.setText(df.format("0"));
                     return;
                 }
 
