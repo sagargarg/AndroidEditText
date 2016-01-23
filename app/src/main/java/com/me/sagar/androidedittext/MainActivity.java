@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                     value1.setText(df.format(0));
                     value2.setText(df.format(0));
                 } else {
-                    value1.setText(df.format(valuevar));
                     value2.setText(df.format(valuevar));
                 }
             }
