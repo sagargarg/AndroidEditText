@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                         value2.setText(df.format(val1));
                     }
                 } catch(ParseException e) {
-
                 }
             }
 
