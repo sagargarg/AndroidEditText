@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,15 +46,20 @@ public class MainActivity extends AppCompatActivity {
         value1.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                String value = s.toString();
-                double valuevar = Double.parseDouble(s.toString());
+                if (s.toString().equals("")) {
+                    value1.setText(df.format("0"));
+                    value2.setText(df.format("0"));
+                    return;
+                }
+                try {
+                    double val1 = df.parse(s.toString()).doubleValue();
+                    double val2 = df.parse(value2.getText().toString()).doubleValue();
 
-                if (value.equals("")) {
-                    value1.setText(df.format(0));
-                    value2.setText(df.format(0));
-                } else {
-                    value1.setText(df.format(valuevar));
-                    value2.setText(df.format(valuevar));
+                    if (val1 != val2) {
+                        value2.setText(df.format(val1));
+                    }
+                } catch(ParseException e) {
+
                 }
             }
 
@@ -64,6 +70,41 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(final CharSequence s, int start, int before, int count) {
             }
+        });
+
+        value2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().equals("")) {
+                    value1.setText(df.format("0"));
+                    value2.setText(df.format("0"));
+                    return;
+                }
+
+                try {
+                    double val1 = df.parse(value1.getText().toString()).doubleValue();
+                    double val2 = df.parse(editable.toString()).doubleValue();
+                    if (val1 != val2) {
+                        value1.setText(df.format(val2));
+                    }
+                } catch(ParseException e) {
+
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+
+            }
+
+
         });
     }
 
